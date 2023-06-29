@@ -13,6 +13,9 @@
 		30A632B82A4D8BA100C0416E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30A632B62A4D8BA100C0416E /* Main.storyboard */; };
 		30A632BA2A4D8BA200C0416E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30A632B92A4D8BA200C0416E /* Assets.xcassets */; };
 		30A632BD2A4D8BA200C0416E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30A632BB2A4D8BA200C0416E /* LaunchScreen.storyboard */; };
+		30BF0EFB2A4DC782000A8497 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BF0EFA2A4DC782000A8497 /* Card.swift */; };
+		30BF0F012A4DD19B000A8497 /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BF0F002A4DD19B000A8497 /* Concentration.swift */; };
+		30BF0F082A4DD2C2000A8497 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BF0F072A4DD2C2000A8497 /* extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		30A632B92A4D8BA200C0416E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30A632BC2A4D8BA200C0416E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30A632BE2A4D8BA200C0416E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30BF0EFA2A4DC782000A8497 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		30BF0F002A4DD19B000A8497 /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
+		30BF0F072A4DD2C2000A8497 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,50 @@
 		30A632AF2A4D8BA100C0416E /* Concentration */ = {
 			isa = PBXGroup;
 			children = (
-				30A632B02A4D8BA100C0416E /* AppDelegate.swift */,
-				30A632B22A4D8BA100C0416E /* SceneDelegate.swift */,
-				30A632B42A4D8BA100C0416E /* ViewController.swift */,
+				30BF0EFE2A4DD177000A8497 /* Model */,
+				30BF0F042A4DD1A5000A8497 /* Controller */,
+				30BF0F062A4DD2AE000A8497 /* Utility */,
+				30A632C52A4D8BC800C0416E /* Supporting */,
 				30A632B62A4D8BA100C0416E /* Main.storyboard */,
-				30A632B92A4D8BA200C0416E /* Assets.xcassets */,
-				30A632BB2A4D8BA200C0416E /* LaunchScreen.storyboard */,
 				30A632BE2A4D8BA200C0416E /* Info.plist */,
 			);
 			path = Concentration;
+			sourceTree = "<group>";
+		};
+		30A632C52A4D8BC800C0416E /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				30A632B02A4D8BA100C0416E /* AppDelegate.swift */,
+				30A632B22A4D8BA100C0416E /* SceneDelegate.swift */,
+				30A632B92A4D8BA200C0416E /* Assets.xcassets */,
+				30A632BB2A4D8BA200C0416E /* LaunchScreen.storyboard */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		30BF0EFE2A4DD177000A8497 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				30BF0EFA2A4DC782000A8497 /* Card.swift */,
+				30BF0F002A4DD19B000A8497 /* Concentration.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		30BF0F042A4DD1A5000A8497 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				30A632B42A4D8BA100C0416E /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		30BF0F062A4DD2AE000A8497 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				30BF0F072A4DD2C2000A8497 /* extension.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +178,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30BF0EFB2A4DC782000A8497 /* Card.swift in Sources */,
 				30A632B52A4D8BA100C0416E /* ViewController.swift in Sources */,
 				30A632B12A4D8BA100C0416E /* AppDelegate.swift in Sources */,
+				30BF0F082A4DD2C2000A8497 /* extension.swift in Sources */,
 				30A632B32A4D8BA100C0416E /* SceneDelegate.swift in Sources */,
+				30BF0F012A4DD19B000A8497 /* Concentration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
