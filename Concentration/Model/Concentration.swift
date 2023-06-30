@@ -10,11 +10,41 @@ import Foundation
 class Concentration {
 	var cards = [Card]()
 	
+	private var indexOfOnlyAndOnlyFaceupCard: Int? {
+		get {
+			var foundIndex: Int?
+			for index in cards.indices {
+				if cards[index].isFaceup {
+					if foundIndex == nil {
+						foundIndex = index
+					} else {
+						return nil
+					}
+				}
+			}
+			return foundIndex
+		}
+		set {
+			for index in cards.indices {
+				cards[index].isFaceup = (index == newValue)
+			}
+		}
+	}
+	
+	
 	func chooseCard(at index: Int) {
-		if cards[index].isFaceup {
-			cards[index].isFaceup = false
-		} else {
-			cards[index].isFaceup = true
+		// to implement
+		if !cards[index].isMatch {
+			if let matchIndex = indexOfOnlyAndOnlyFaceupCard, matchIndex != index {
+				//check if card match
+				if cards[matchIndex].identifier == cards[index].identifier {
+					cards[matchIndex].isMatch = true
+					cards[index].isMatch = true
+				}
+				cards[index].isFaceup = true
+			} else {
+				indexOfOnlyAndOnlyFaceupCard = index
+			}
 		}
 	}
 	
@@ -22,6 +52,8 @@ class Concentration {
 		for _ in 1...numberOfPairOfCards {
 			let card = Card()
 			cards += [card, card]
+			cards.shuffle()
 		}
 	}
 }
+

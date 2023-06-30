@@ -8,8 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+	// MARK: - initialized Game model
+	lazy var game = Concentration(numberOfPairOfCards: numberOfPairOfCards)
 	
-	lazy var game = Concentration(numberOfPairOfCards: (cardButtons.count + 1) / 2 )
+	private var numberOfPairOfCards: Int {
+		(cardButtons.count + 1) / 2
+	}
 	
 	@IBOutlet weak var flipCountLabel: UILabel!
 	private var flipCount = 0 {
@@ -20,7 +24,7 @@ class ViewController: UIViewController {
 	
 	
 	@IBOutlet var cardButtons: [UIButton]!
-	var emojiChoices = ["👻", "🐶", "🌚", "🎃", "🔥", "⛄️", "🍎", "🌹"]
+	
 	
 	@IBAction func touchCard(_ sender: UIButton) {
 		if let cardNumber = cardButtons.firstIndex(of: sender) {
@@ -31,7 +35,7 @@ class ViewController: UIViewController {
 	}
 	
 	
-	
+	// MARK: - update view from model
 	func updateUI() {
 		for index in cardButtons.indices {
 			let button = cardButtons[index]
@@ -46,11 +50,15 @@ class ViewController: UIViewController {
 		}
 	}
 	
-	var emoji = [Int: String]()
+	
+	var emojiChoices = ["👻", "🐶", "🌚", "🎃", "🔥", "⛄️", "🍎", "🌹"]
+	var emoji = [Int: String]() // Dictionary to add random emoji on demand touch card
 	
 	func emoji(for card: Card) -> String {
 		if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-			let randomIndex = cardButtons.count.arc4random() //Int(arc4random_uniform(UInt32(cardButtons.count)))
+			let randomIndex = emojiChoices.count.arc4random()
+			print(randomIndex)
+			//Int(arc4random_uniform(UInt32(cardButtons.count)))
 			emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
 		}
 		return emoji[card.identifier] ?? "?"
