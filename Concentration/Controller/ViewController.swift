@@ -10,15 +10,40 @@ import UIKit
 class ViewController: UIViewController {
 	// MARK: - initialized Game model
 	lazy var game = Concentration(numberOfPairOfCards: numberOfPairOfCards)
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		emojiChoices = game.emojiChoices()!
-	}
-	
 	private var numberOfPairOfCards: Int {
 		(cardButtons.count + 1) / 2
 	}
+	
+	
+	
+	// MARK: Emoji Declarition Stuff
+	var emojiChoice: [String]?
+	var emojiTheme: String?
+	private let theme = [ "Animals": ["🐶", "🦊", "🐼", "🦁", "🐷", "🐵", "🐔", "🦆", "🦉", "🦅"],
+						 "Fruits": ["🍏", "🍐", "🍊", "🍓", "🍉", "🍒", "🥑", "🥦", "🥕", "🌽"],
+						 "Activity": ["⚽️", "🏀", "🏈", "🎱", "🏓", "🏏", "🥊", "🏹", "⛸", "🛹"] ]
+	
+	private func emojiChoices() -> (String?, [String]?) {
+		let key = theme.randomElement()?.key
+		let value = theme[key!]
+		return (key, value)
+	}
+	
+	private func configureEmoji() {
+		(emojiTheme, emojiChoice) = emojiChoices()
+		print(emojiTheme!)
+		print(emojiChoice!)
+	}
+	
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		configureEmoji()
+		updateBackgroundTheme()
+	}
+	
+	
 	
 	@IBOutlet weak var flipCountLabel: UILabel! {
 		didSet {
@@ -33,10 +58,11 @@ class ViewController: UIViewController {
 	}
 	
 
-	
 	@IBOutlet var cardButtons: [UIButton]!
 	
 	
+	
+	// MARK: Touch Card
 	@IBAction func touchCard(_ sender: UIButton) {
 		if let cardNumber = cardButtons.firstIndex(of: sender) {
 			game.chooseCard(at: cardNumber)
@@ -45,49 +71,69 @@ class ViewController: UIViewController {
 		}
 	}
 	
+	var emoji = [Int: String]() // Dictionary to add random emoji on demand touch card
+	func emoji(for card: Card) -> String {
+		if emoji[card.identifier] == nil, emojiChoice!.count > 0 {
+			let randomIndex = emojiChoice!.count.arc4random()
+			print(randomIndex)
+			//Int(arc4random_uniform(UInt32(cardButtons.count)))
+			emoji[card.identifier] = emojiChoice!.remove(at: randomIndex)
+		}
+		return emoji[card.identifier] ?? "?"
+	}
+	
+	
 	
 	// MARK: - update view from model
 	func updateUI() {
 		for index in cardButtons.indices {
 			let button = cardButtons[index]
-			let card = game.cards[index]
-			if card.isFaceup {
-				button.setTitle(emoji(for: card), for: UIControl.State.normal)
+			if game.cards[index].isFaceup {
+				button.setTitle(emoji(for: game.cards[index]), for: UIControl.State.normal)
 				button.backgroundColor = .white
 			} else {
 				button.setTitle("", for: UIControl.State.normal)
-				button.backgroundColor = card.isMatch ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1, green: 0.6235294118, blue: 0.03921568627, alpha: 1)
+				button.backgroundColor = game.cards[index].isMatch ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 0.5)
 			}
 			flipCountLabel.text = "Flips: \(game.flipCount)"
 			scoreLabel.text = "Scores: \(game.scores)"
 		}
 	}
 	
-	var emojiChoices = [String]()
-	var emoji = [Int: String]() // Dictionary to add random emoji on demand touch card
-
-	func emoji(for card: Card) -> String {
-		if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-			let randomIndex = emojiChoices.count.arc4random()
-			print(randomIndex)
-			//Int(arc4random_uniform(UInt32(cardButtons.count)))
-			emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
-		}
-		return emoji[card.identifier] ?? "?"
-	}
-
 	
+	
+	// MARK: New Game
 	@IBAction func makeNewGame(_ sender: UIButton) {
-		emojiChoices = game.emojiChoices()!
 		emoji.removeAll()
+		emojiChoice?.removeAll()
+		configureEmoji()
+	
 		game.flipCount = 0
 		game.scores = 0
 		
-		for index in game.cards.indices {
+		for index in cardButtons.indices {
 			game.cards[index].isMatch = false
 			game.cards[index].isFaceup = false
+
 		}
-		updateUI()
+		updateBackgroundTheme()
+		updateUI()	
+	}
+	
+	
+	
+	// MARK: Background Theme
+	private func updateBackgroundTheme() {
+		switch emojiTheme! {
+		case "Fruits":
+			view.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+		case "Animals":
+			view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+		case "Activity":
+			view.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+		default:
+			view.backgroundColor = .systemBackground
+		}
 	}
 	
 }
