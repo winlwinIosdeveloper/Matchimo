@@ -10,6 +10,13 @@ import Foundation
 class Concentration {
 	var cards = [Card]()
 	
+	private let theme = [ "Animals": ["🐶", "🦊", "🐼", "🦁", "🐷", "🐵", "🐔", "🦆", "🦉", "🦅"],
+						 "Fruits": ["🍏", "🍐", "🍊", "🍓", "🍉", "🍒", "🥑", "🥦", "🥕", "🌽"],
+						 "Activity": ["⚽️", "🏀", "🏈", "🎱", "🏓", "🏏", "🥊", "🏹", "⛸", "🛹"] ]
+	
+	
+	var flipCount = 0
+	
 	private var indexOfOnlyAndOnlyFaceupCard: Int? {
 		get {
 			var foundIndex: Int?
@@ -46,6 +53,7 @@ class Concentration {
 				indexOfOnlyAndOnlyFaceupCard = index
 			}
 		}
+		flipCount += 1
 	}
 	
 	init(numberOfPairOfCards: Int) {
@@ -54,6 +62,12 @@ class Concentration {
 			cards += [card, card]
 			cards.shuffle()
 		}
+	}
+	
+	
+	
+	func emojiChoices() -> [String]? {
+		return theme.randomElement()?.value
 	}
 }
 
