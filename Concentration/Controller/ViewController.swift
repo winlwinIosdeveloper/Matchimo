@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 	}
 	
 	
-	var emojiChoices = ["👻", "🐶", "🌚", "🎃", "🔥", "⛄️", "🍎", "🌹"]
+	var emojiChoices = ["👻", "🐶", "🌚", "🎃", "🔥", "⛄️", "🍎", "🌹", "🌻" , "⭐️", "☃️", "🍓", "🍏", "🌶", "⚽️", "🎲"]
 	var emoji = [Int: String]() // Dictionary to add random emoji on demand touch card
 	
 	func emoji(for card: Card) -> String {
@@ -62,6 +62,16 @@ class ViewController: UIViewController {
 			emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
 		}
 		return emoji[card.identifier] ?? "?"
+	}
+	
+	
+	
+	@IBAction func makeNewGame(_ sender: UIButton) {
+		for index in game.cards.indices {
+			game.cards[index].isMatch = false
+			game.cards[index].isFaceup = false
+		}
+		updateUI()
 	}
 	
 }
