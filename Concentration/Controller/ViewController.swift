@@ -26,6 +26,13 @@ class ViewController: UIViewController {
 		}
 	}
 	
+	@IBOutlet weak var scoreLabel: UILabel! {
+		didSet {
+			scoreLabel.text = "Scores: \(game.scores)"
+		}
+	}
+	
+
 	
 	@IBOutlet var cardButtons: [UIButton]!
 	
@@ -52,6 +59,7 @@ class ViewController: UIViewController {
 				button.backgroundColor = card.isMatch ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1, green: 0.6235294118, blue: 0.03921568627, alpha: 1)
 			}
 			flipCountLabel.text = "Flips: \(game.flipCount)"
+			scoreLabel.text = "Scores: \(game.scores)"
 		}
 	}
 	
@@ -73,6 +81,7 @@ class ViewController: UIViewController {
 		emojiChoices = game.emojiChoices()!
 		emoji.removeAll()
 		game.flipCount = 0
+		game.scores = 0
 		
 		for index in game.cards.indices {
 			game.cards[index].isMatch = false
